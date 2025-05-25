@@ -9,22 +9,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Luckiest+Guy&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Fortnite Companion</h1>
-        </header>
+    <div id="background" class="bg"></div>
+        <div class="container">
+            <div class="background-color"></div>
+            <div id="season-label" class="label"></div>
+            <header>
+                <h1>Fortnite Companion</h1>
+            </header>
 
-        <nav>
-            <button data-slide="drop">Drop Spot</button>
-            <button data-slide="loadout">Loadout</button>
-            <button data-slide="forecast">Weather</button>
-        </nav>
+            <nav>
+                <button data-slide="drop">Drop Spot</button>
+                <button data-slide="loadout">Loadout</button>
+                <button data-slide="forecast">Weather</button>
+            </nav>
 
-        <main id="slide-content">
-        Loading...
-        </main>
+            <main id="slide-content">
+            Loading...
+            </main>
+        </div>
     </div>
-
     <script src="app.js"></script>
 </body>
 </html>

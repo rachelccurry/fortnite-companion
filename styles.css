@@ -1,6 +1,5 @@
 body {
     font-family: 'Luckiest Guy';
-    background: #1e1e2f;
     color: #eee;
     margin: 0; padding: 0;
     display: flex;
@@ -10,18 +9,36 @@ body {
 }
 
 .container {
+    position: relative;
     width: 480px;
     margin-top: 40px;
-    background: #2c2c44;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 0 15px #9147ffaa;
+    box-shadow: 0 0 15px #48cae4;
+    overflow: hidden;
+}
+
+.background-color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #023e8a;
+    opacity: 0.75;
+    border-radius: 12px;
+    z-index: 0;
+}
+
+.container > *:not(.background-color) {
+    position: relative;
+    z-index: 1;
 }
 
 header h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #9147ff;
+    color: #caf0f8;
 }
 
 nav {
@@ -32,7 +49,7 @@ nav {
 }
 
 button {
-    background: #9147ff;
+    background: #0096c7;
     border: none;
     border-radius: 8px;
     color: white;
@@ -44,17 +61,38 @@ button {
 }
 
 button:hover, button:focus {
-    background: #b05aff;
+    background: #48cae4;
     outline: none;
 }
 
 main#slide-content {
-    min-height: 160px;
+    height: 300px;
     font-size: 1.2rem;
     padding: 15px;
-    background: #3c3c66;
+    background: #03045e;
     border-radius: 8px;
     text-align: center;
     line-height: 1.4;
 }
 
+.bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.label {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    font-weight: bold;
+    background: rgba(0,0,0,0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
