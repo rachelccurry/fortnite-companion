@@ -9,11 +9,15 @@ let currentSlide = 'drop';
 let slideInterval;
 const slideDuration = 13000;
 const mapDuration = 43200000;
+setInterval(updateDateTime, 20000);
 
 const DATA_URL = 'https://rachelccurry.github.io/fortnite-companion-data/data.json';
+const SKIN_URL = 'https://fortnite-api.com/v2/cosmetics/br?type=outfit';
 
 let fortniteData = null;
 
+
+// GET DATA FUNCTIONS //
 async function fetchData() {
     try {
         const res = await fetch(DATA_URL);
@@ -25,8 +29,14 @@ async function fetchData() {
     }
 }
 
+async function fetchSkins() {
+    const res = await fetch(SKIN_URL);
+    const data = await res.json();
+    return data.data;
+}
 
-// SLIDE FUNCTIONS //
+
+// RIGHT PANE FUNCTIONS //
 function renderSlide(type) {
     if (!fortniteData) {
         slideContent.textContent = 'Loading...';
@@ -34,21 +44,24 @@ function renderSlide(type) {
     }
     if (type === 'drop') {
         const spot = fortniteData.dropSpots[Math.floor(Math.random() * fortniteData.dropSpots.length)];
-        slideContent.innerHTML = `<h2>🎯 Drop Spot:</h2><p>${spot}</p>`;
-    } else if (type === 'loadout') {
+        slideContent.innerHTML = `<h2 class="slide-title">🎯 Drop Spot</h2><p class="slide-body">${spot}</p>`;
+    } 
+    else if (type === 'loadout') {
         const loadout = fortniteData.loadouts[Math.floor(Math.random() * fortniteData.loadouts.length)];
-        slideContent.innerHTML = `<h2>🎒 Loadout:</h2>
-        <p>Primary: ${loadout.primary}</p>
-        <p>Secondary: ${loadout.secondary}</p>
-        <p>Utility: ${loadout.utility}</p>`;
-    } else if (type === 'forecast') {
-        slideContent.innerHTML = `<h2>🌩 Weather Forecast:</h2><p>${fortniteData.forecast}</p>`;
+        slideContent.innerHTML = `<h2 class="slide-title">🎒 Loadout</h2>
+        <p class="slide-body"><strong>Primary: </strong>${loadout.primary}</p>
+        <p class="slide-body"><strong>Secondary: </strong>${loadout.secondary}</p>
+        <p class="slide-body"><strong>Utility: </strong>${loadout.utility}</p>`;
+    } 
+    else if (type === 'forecast') {
+        slideContent.innerHTML = `<h2 class="slide-title">🌩 Weather Forecast</h2><p class="slide-body">${fortniteData.forecast}</p>`;
     }
 }
 
 function showSlide(type) {
     currentSlide = type;
     renderSlide(type);
+    updateActiveButton(type);
     resetInterval();
 }
 
@@ -61,11 +74,24 @@ function resetInterval() {
     }, slideDuration);
 }
 
+
+// BUTTON THINGS //
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         showSlide(btn.getAttribute('data-slide'));
     });
 });
+
+function updateActiveButton(type) {
+    buttons.forEach(btn => {
+        if (btn.getAttribute('data-slide') === type) {
+            btn.classList.add('active');
+        } 
+        else {
+            btn.classList.remove('active');
+        }
+    });
+}
 
 
 // BACKGROUND FUNCTIONS //
@@ -94,8 +120,38 @@ function renderBackground() {
 }
 
 
+// LEFT PANE FUNCTIONS //
+function getDailySkin(skins) {
+    const now = new Date();
+    const day = now.toISOString().split('T')[0];
+    
+    const hash = [...day].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const index = hash % skins.length;
+    return skins[index];
+}
+fetchSkins().then(skins => {
+  const dailySkin = getDailySkin(skins);
+  const container = document.getElementById('daily-skin');
+  container.innerHTML = `
+    <h2 class="skin-title">Skin of the Day</h2>
+    <img src="${dailySkin.images.icon}" alt="${dailySkin.name}" style="width:100%">
+    <p class="skin-name">${dailySkin.name}</p>
+  `;
+});
+
+function updateDateTime() {
+    const now = new Date();
+    const options = { weekday: 'short', month: 'short', day: 'numeric' };
+    const dateStr = now.toLocaleDateString(undefined, options);
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    document.getElementById('date-display').textContent = dateStr;
+    document.getElementById('time-display').textContent = timeStr;
+}
+
 // RENDER DATA //
 fetchData().then(() => {
     showSlide('drop');
+    updateDateTime();
     renderBackground();
 });

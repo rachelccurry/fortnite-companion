@@ -5,17 +5,42 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    min-height: 100vh;
 }
 
 .container {
     position: relative;
-    width: 480px;
-    margin-top: 40px;
+    width: 90%;
+    max-width: 750px;
+    height: 395px;
+    margin: 20px auto;
     border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 0 15px #48cae4;
+    padding: 10px;
+    box-shadow: 0 0 15px #000000;
     overflow: hidden;
+}
+
+.sub-container {
+    height: 100%;
+    display: flex;
+    gap: 5%;
+    padding: 10px;
+    align-items: stretch;
+}
+
+.left-sub-container {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.right-sub-container {
+    flex: 0 0 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
 .background-color {
@@ -24,8 +49,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #023e8a;
-    opacity: 0.75;
+    background: #9146ff;
+    opacity: 0.50;
     border-radius: 12px;
     z-index: 0;
 }
@@ -35,10 +60,9 @@ body {
     z-index: 1;
 }
 
-header h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #caf0f8;
+.main-title {
+    font-size: 16pt;
+    margin-bottom: 5px;
 }
 
 nav {
@@ -50,7 +74,7 @@ nav {
 
 button {
     background: #0096c7;
-    border: none;
+    border: 3px solid transparent;
     border-radius: 8px;
     color: white;
     padding: 10px 20px;
@@ -60,19 +84,18 @@ button {
     transition: background 0.3s ease;
 }
 
-button:hover, button:focus {
+button:active, button:hover, button:focus {
     background: #48cae4;
-    outline: none;
+    border: 3px solid #ffff55;
+    transition: all 0.2s ease;
 }
 
 main#slide-content {
-    height: 300px;
-    font-size: 1.2rem;
-    padding: 15px;
-    background: #03045e;
+    font-size: 16pt;
+    padding: 10px;
+    background: #9146ff;
     border-radius: 8px;
     text-align: center;
-    line-height: 1.4;
 }
 
 .bg {
@@ -95,4 +118,70 @@ main#slide-content {
     background: rgba(0,0,0,0.5);
     padding: 4px 8px;
     border-radius: 4px;
+}
+
+.slide-title {
+    font-family: 'Luckiest Guy';
+    font-size: 16pt;
+}
+
+.slide-body {
+    font-family: 'Karla';
+    font-size: 11pt;
+}
+
+.skin-display {
+    background: #9146ff;
+    border-radius: 8px;
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    gap: 3px;
+}
+
+.daily-skin {
+    max-height: 85%;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+    margin: 0;
+}
+
+.skin-title {
+    padding-top: 10px;
+    font-family: 'Luckiest Guy';
+    font-size: 14pt;
+    margin: 0 0 4px 0;
+}
+
+.skin-name {
+    font-family: 'Karla';
+    font-size: 11pt;
+    margin: 5px;
+}
+
+.date-time {
+    display: flex;
+    gap: 7px;
+    font-size: 10pt;
+    font-family: 'Karla';
+    margin-bottom: 10px;
+    color: #fff;
+    opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+    .sub-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .left-sub-container,
+    .right-sub-container {
+        flex: 1 1 100%;
+    }
 }
