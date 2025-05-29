@@ -16,17 +16,20 @@
                 <h1 class="main-title">Fortnite</h1>
             </header>
             <div class="sub-container">
-                <div class="right-sub-container">
+                <div class="left-sub-container">
                     <div class="date-time">
                         <span id="date-display"></span>
                         <span>&nbsp;|&nbsp;</span>
                         <span id="time-display"></span>
                     </div>
-                    <div class="skin-display">
-                        <div id="daily-skin"></div>
+                    <div class="skin-slideshow">
+                        <div class="skin-display">
+                            <div id="daily-skin"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="left-sub-container">
+                <button class="right-arrow">></button>
+                <div class="right-sub-container">
                     <nav>
                         <button data-slide="drop">Drop Spot</button>
                         <button data-slide="loadout">Loadout</button>
@@ -36,6 +39,7 @@
                     Loading...
                     </main>
                 </div>
+                <button class="left-arrow hidden"><</button>
             </div>
         </div>
         <div id="season-label" class="label"></div>

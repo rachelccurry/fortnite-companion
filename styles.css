@@ -16,7 +16,7 @@ body {
     border-radius: 12px;
     padding: 10px;
     box-shadow: 0 0 15px #000000;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .sub-container {
@@ -27,7 +27,7 @@ body {
     align-items: stretch;
 }
 
-.left-sub-container {
+.right-sub-container {
     flex: 0 0 60%;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,8 @@ body {
     height: 100%;
 }
 
-.right-sub-container {
+.left-sub-container {
+    position: relative;
     flex: 0 0 35%;
     display: flex;
     flex-direction: column;
@@ -49,7 +50,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #9146ff;
+    background: rgba(145, 70, 255, 0.75);
     opacity: 0.50;
     border-radius: 12px;
     z-index: 0;
@@ -72,28 +73,57 @@ nav {
     margin-bottom: 20px;
 }
 
-button {
-    background: #0096c7;
-    border: 3px solid transparent;
-    border-radius: 8px;
+.right-arrow {
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    background: rgba(57, 57, 57, 0.5);
     color: white;
-    padding: 10px 20px;
-    font-family: 'Karla';
-    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    width: 30px;
+    height: 50px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
+    z-index: 10;
+    pointer-events: auto;
+    opacity: 1;
 }
 
-button:active, button:hover, button:focus {
-    background: #48cae4;
-    border: 3px solid #ffff55;
-    transition: all 0.2s ease;
+.left-arrow {
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translate(-50%, -50%);
+    background: rgba(57, 57, 57, 0.5);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 30px;
+    height: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.right-arrow:hover, .left-arrow:hover {
+    background-color: rgba(57, 57, 57, 0.75);
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 main#slide-content {
     font-size: 16pt;
     padding: 10px;
-    background: #9146ff;
+    background: rgba(145, 70, 255, 0.6);
     border-radius: 8px;
     text-align: center;
 }
@@ -131,7 +161,8 @@ main#slide-content {
 }
 
 .skin-display {
-    background: #9146ff;
+    position: relative;
+    background: rgba(145, 70, 255, 0.6);
     border-radius: 8px;
     text-align: center;
     overflow: hidden;

@@ -4,6 +4,8 @@
 
 const slideContent = document.getElementById('slide-content');
 const buttons = document.querySelectorAll('nav button');
+const leftBtn = document.querySelector('.left-arrow');
+const rightBtn = document.querySelector('.right-arrow');
 
 let currentSlide = 'drop';
 let slideInterval;
@@ -92,6 +94,16 @@ function updateActiveButton(type) {
         }
     });
 }
+
+rightBtn.addEventListener('click', () => {
+    rightBtn.classList.add('hidden');
+    leftBtn.classList.remove('hidden');
+});
+
+leftBtn.addEventListener('click', () => {
+    leftBtn.classList.add('hidden');
+    rightBtn.classList.remove('hidden');
+});
 
 
 // BACKGROUND FUNCTIONS //
