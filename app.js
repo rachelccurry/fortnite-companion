@@ -6,6 +6,8 @@ const slideContent = document.getElementById('slide-content');
 const buttons = document.querySelectorAll('nav button');
 const leftBtn = document.querySelector('.left-arrow');
 const rightBtn = document.querySelector('.right-arrow');
+const slides = document.querySelectorAll('.skin-slide');
+let currentSkinSlide = 0;
 
 let currentSlide = 'drop';
 let slideInterval;
@@ -34,7 +36,7 @@ async function fetchData() {
 async function fetchSkins() {
     const res = await fetch(SKIN_URL);
     const data = await res.json();
-    return data.data;
+    return data.data.filter(item => item.type.backendValue === 'AthenaCharacter');
 }
 
 
@@ -98,11 +100,15 @@ function updateActiveButton(type) {
 rightBtn.addEventListener('click', () => {
     rightBtn.classList.add('hidden');
     leftBtn.classList.remove('hidden');
+    currentSkinSlide = (currentSkinSlide + 1) % slides.length;
+    showSkinSlide(currentSkinSlide);
 });
 
 leftBtn.addEventListener('click', () => {
     leftBtn.classList.add('hidden');
     rightBtn.classList.remove('hidden');
+    currentSkinSlide = (currentSkinSlide - 1 + slides.length) % slides.length;
+    showSkinSlide(currentSkinSlide);
 });
 
 
@@ -146,10 +152,23 @@ fetchSkins().then(skins => {
   const container = document.getElementById('daily-skin');
   container.innerHTML = `
     <h2 class="skin-title">Skin of the Day</h2>
-    <img src="${dailySkin.images.icon}" alt="${dailySkin.name}" style="width:100%">
+    <img src="${dailySkin.images.featured}" alt="${dailySkin.name}" style="width:100%">
     <p class="skin-name">${dailySkin.name}</p>
   `;
+  const container2 = document.getElementById('daily-skin-details');
+  container2.innerHTML = `
+  <h3 class="skin-title">Details</h3>
+  <p class="skin-name"><strong>Description</strong>: ${dailySkin.description}</p>
+  <p class="skin-name">Set: ${dailySkin.set.text}</p>
+  <p class="skin-name">Released: ${dailySkin.introduction.text}</p>
+  <p class="skin-name">Rarity: ${dailySkin.rarity.displayValue}</p>
+  `;
 });
+function showSkinSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+    });
+}
 
 function updateDateTime() {
     const now = new Date();
