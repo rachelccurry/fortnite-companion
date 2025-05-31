@@ -79,7 +79,7 @@ nav {
     top: 50%;
     left: 35%;
     transform: translate(-50%, -50%);
-    background: rgba(57, 57, 57, 0.5);
+    background: rgba(57, 57, 57, 0.35);
     color: white;
     border: none;
     border-radius: 8px;
@@ -98,7 +98,7 @@ nav {
     top: 50%;
     left: 2%;
     transform: translate(-50%, -50%);
-    background: rgba(57, 57, 57, 0.5);
+    background: rgba(57, 57, 57, 0.35);
     color: white;
     border: none;
     border-radius: 8px;
@@ -112,7 +112,7 @@ nav {
 }
 
 .right-arrow:hover, .left-arrow:hover {
-    background-color: rgba(57, 57, 57, 0.75);
+    background-color: rgba(57, 57, 57, 0.5);
 }
 
 .hidden {
@@ -181,12 +181,12 @@ main#slide-content {
     position: relative;
     background: rgba(145, 70, 255, 0.6);
     border-radius: 8px;
-    text-align: center;
+    /* text-align: center; */
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
     padding: 10px;
     gap: 3px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -205,12 +205,22 @@ main#slide-content {
     font-family: 'Luckiest Guy';
     font-size: 14pt;
     margin: 0 0 4px 0;
+    text-align: center;
 }
 
 .skin-name {
     font-family: 'Karla';
     font-size: 11pt;
     margin: 5px;
+    text-align: center;
+}
+
+.skin-description {
+    font-family: 'Karla';
+    font-size: 11pt;
+    margin: 7px;
+    margin-left: 20px;
+    text-align: left;
 }
 
 .date-time {
@@ -220,7 +230,7 @@ main#slide-content {
     font-family: 'Karla';
     margin-bottom: 10px;
     color: #fff;
-    opacity: 0.85;
+    font-weight: 600;
 }
 
 @media (max-width: 600px) {

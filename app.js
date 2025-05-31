@@ -7,6 +7,7 @@ const buttons = document.querySelectorAll('nav button');
 const leftBtn = document.querySelector('.left-arrow');
 const rightBtn = document.querySelector('.right-arrow');
 const slides = document.querySelectorAll('.skin-slide');
+const backupImg = 'https://rachelccurry.github.io/fortnite-companion-data/other/backup.png';
 let currentSkinSlide = 0;
 
 let currentSlide = 'drop';
@@ -140,28 +141,35 @@ function renderBackground() {
 
 // LEFT PANE FUNCTIONS //
 function getDailySkin(skins) {
-    const now = new Date();
-    const day = now.toISOString().split('T')[0];
-    
-    const hash = [...day].reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const index = hash % skins.length;
+    const index = Math.floor(Math.random() * skins.length);
     return skins[index];
 }
 fetchSkins().then(skins => {
-  const dailySkin = getDailySkin(skins);
-  const container = document.getElementById('daily-skin');
-  container.innerHTML = `
-    <h2 class="skin-title">Skin of the Day</h2>
-    <img src="${dailySkin.images.featured}" alt="${dailySkin.name}" style="width:100%">
-    <p class="skin-name">${dailySkin.name}</p>
-  `;
-  const container2 = document.getElementById('daily-skin-details');
-  container2.innerHTML = `
-  <h3 class="skin-title">Details</h3>
-  <p class="skin-name"><strong>Description</strong>: ${dailySkin.description}</p>
-  <p class="skin-name">Set: ${dailySkin.set.text}</p>
-  <p class="skin-name">Released: ${dailySkin.introduction.text}</p>
-  <p class="skin-name">Rarity: ${dailySkin.rarity.displayValue}</p>
+    let dailySkin = getDailySkin(skins);
+    while (!dailySkin.images.featured) {
+        dailySkin = getDailySkin(skins);
+    }
+    const container = document.getElementById('daily-skin');
+    if (dailySkin.images.featured) {
+        container.innerHTML = `
+        <h2 class="skin-title">Skin of the Day</h2>
+        <img src="${dailySkin.images.featured}" alt="${dailySkin.name}" style="width:100%">
+        <p class="skin-name">${dailySkin.name}</p>`;
+    }
+    else {
+        console.error("Skin not loading...");      
+    }
+    const container2 = document.getElementById('daily-skin-details');
+    container2.innerHTML = `
+    <h3 class="skin-title">Details</h3>
+    <p class="skin-description"><strong style="font-weight: 800;">Description</strong>: ${dailySkin.description}</p>
+    <p></p>
+    <p class="skin-description"><strong style="font-weight: 800;">Set</strong>: ${dailySkin.set.text}</p>
+    <p></p>
+    <p class="skin-description"><strong style="font-weight: 800;">Released</strong>: ${dailySkin.introduction.text}</p>
+    <p></p>
+    <p class="skin-description"><strong style="font-weight: 800;">Rarity</strong>: ${dailySkin.rarity.displayValue}</p>
+    <p></p>
   `;
 });
 function showSkinSlide(index) {
