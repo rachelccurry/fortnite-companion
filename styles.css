@@ -1,3 +1,4 @@
+/* GLOBAL */
 body {
     font-family: 'Luckiest Guy';
     color: #eee;
@@ -27,30 +28,13 @@ body {
     align-items: stretch;
 }
 
-.right-sub-container {
-    flex: 0 0 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-}
-
-.left-sub-container {
-    position: relative;
-    flex: 0 0 35%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-}
-
 .background-color {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(145, 70, 255, 0.75);
+    background:rgba(24, 26, 31, 0.75);
     opacity: 0.50;
     border-radius: 12px;
     z-index: 0;
@@ -66,11 +50,71 @@ body {
     margin-bottom: 5px;
 }
 
+.bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.label {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* RIGHT PANE */
+.right-sub-container {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+main#slide-content {
+    font-size: 16pt;
+    padding: 10px;
+    background: rgba(145, 70, 255, 0.45);
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
 nav {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
+}
+
+/* LEFT PANE */
+.left-sub-container {
+    position: relative;
+    flex: 0 0 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.date-time {
+    display: flex;
+    gap: 7px;
+    font-size: 10pt;
+    font-family: 'Karla';
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 600;
 }
 
 .right-arrow {
@@ -120,7 +164,26 @@ nav {
     pointer-events: none;
 }
 
+.skin-slideshow-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background: rgba(145, 70, 255, 0.45);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.skin-slideshow {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
 .skin-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: none;
     width: 100%;
     height: 100%;
@@ -136,35 +199,21 @@ nav {
     z-index: 1;
 }
 
-main#slide-content {
-    font-size: 16pt;
+.skin-display {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     padding: 10px;
-    background: rgba(145, 70, 255, 0.6);
+    gap: 3px;
+}
+
+.daily-skin {
+    max-height: 85%;
+    object-fit: contain;
     border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-.bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-    opacity: 0.5;
-}
-
-.label {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: white;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 4px 8px;
-    border-radius: 4px;
+    display: block;
+    margin: 0;
 }
 
 .slide-title {
@@ -175,29 +224,6 @@ main#slide-content {
 .slide-body {
     font-family: 'Karla';
     font-size: 11pt;
-}
-
-.skin-display {
-    position: relative;
-    background: rgba(145, 70, 255, 0.6);
-    border-radius: 8px;
-    /* text-align: center; */
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    /* justify-content: center; */
-    padding: 10px;
-    gap: 3px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-.daily-skin {
-    max-height: 85%;
-    object-fit: contain;
-    border-radius: 8px;
-    display: block;
-    margin: 0;
 }
 
 .skin-title {
@@ -219,20 +245,11 @@ main#slide-content {
     font-family: 'Karla';
     font-size: 11pt;
     margin: 7px;
-    margin-left: 20px;
+    margin-left: 25px;
     text-align: left;
 }
 
-.date-time {
-    display: flex;
-    gap: 7px;
-    font-size: 10pt;
-    font-family: 'Karla';
-    margin-bottom: 10px;
-    color: #fff;
-    font-weight: 600;
-}
-
+/* RESPONSIVE */
 @media (max-width: 600px) {
     .sub-container {
         flex-direction: column;
