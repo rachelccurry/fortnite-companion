@@ -11,7 +11,6 @@
 <body>
     <div id="background" class="bg"></div>
         <div class="container">
-            <div class="background-color"></div>
             <header>
                 <h1 class="main-title">Fortnite</h1>
             </header>
@@ -22,7 +21,7 @@
                         <span>&nbsp;|&nbsp;</span>
                         <span id="time-display"></span>
                     </div>
-                    <div class="skin-slideshow-wrapper">
+                    <div class="slideshow-wrapper">
                         <div class="skin-slideshow">
                             <div class="skin-slide active" id="slide1">
                                 <div class="skin-display">
@@ -37,7 +36,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <button class="right-arrow">></button>
                 <div class="right-sub-container">
@@ -46,9 +44,11 @@
                         <button data-slide="loadout">Loadout</button>
                         <button data-slide="forecast">Weather</button>
                     </nav>
-                    <main id="slide-content">
-                    Loading...
-                    </main>
+                    <div class="slideshow-wrapper">
+                        <main id="slide-content">
+                        Loading...
+                        </main>
+                    </div>
                 </div>
                 <button class="left-arrow hidden"><</button>
             </div>

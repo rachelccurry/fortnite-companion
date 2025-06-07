@@ -18,31 +18,15 @@ body {
     padding: 10px;
     box-shadow: 0 0 15px #000000;
     overflow: visible;
+    background:rgba(24, 26, 31, 0.5);
 }
 
 .sub-container {
-    height: 100%;
+    height: 330px;
     display: flex;
     gap: 5%;
     padding: 10px;
     align-items: stretch;
-}
-
-.background-color {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:rgba(24, 26, 31, 0.75);
-    opacity: 0.50;
-    border-radius: 12px;
-    z-index: 0;
-}
-
-.container > *:not(.background-color) {
-    position: relative;
-    z-index: 1;
 }
 
 .main-title {
@@ -72,8 +56,19 @@ body {
     border-radius: 4px;
 }
 
+.slideshow-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(145, 70, 255, 0.45);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
 /* RIGHT PANE */
 .right-sub-container {
+    position: relative;
     flex: 0 0 60%;
     display: flex;
     flex-direction: column;
@@ -84,10 +79,8 @@ body {
 main#slide-content {
     font-size: 16pt;
     padding: 10px;
-    background: rgba(145, 70, 255, 0.45);
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 nav {
@@ -117,11 +110,10 @@ nav {
     font-weight: 600;
 }
 
-.right-arrow {
+.left-arrow, .right-arrow  {
     transition: opacity 0.3s ease;
     position: absolute;
-    top: 50%;
-    left: 35%;
+    top: 60%;
     transform: translate(-50%, -50%);
     background: rgba(57, 57, 57, 0.35);
     color: white;
@@ -136,23 +128,12 @@ nav {
     opacity: 1;
 }
 
+.right-arrow { 
+    left: 35.5%;
+}
+
 .left-arrow {
-    transition: opacity 0.3s ease;
-    position: absolute;
-    top: 50%;
-    left: 2%;
-    transform: translate(-50%, -50%);
-    background: rgba(57, 57, 57, 0.35);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    width: 30px;
-    height: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 10;
-    pointer-events: auto;
-    opacity: 1;
+    left: 3%;
 }
 
 .right-arrow:hover, .left-arrow:hover {
@@ -162,16 +143,6 @@ nav {
 .hidden {
     opacity: 0;
     pointer-events: none;
-}
-
-.skin-slideshow-wrapper {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    background: rgba(145, 70, 255, 0.45);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
 }
 
 .skin-slideshow {
