@@ -18,6 +18,7 @@ setInterval(updateDateTime, 20000);
 
 const DATA_URL = 'https://rachelccurry.github.io/fortnite-companion-data/data.json';
 const SKIN_URL = 'https://fortnite-api.com/v2/cosmetics/br?type=outfit';
+const MAP_URL = 'https://fortnite-api.com/v1/map';
 
 let fortniteData = null;
 
@@ -40,43 +41,10 @@ async function fetchSkins() {
     return data.data.filter(item => item.type.backendValue === 'AthenaCharacter');
 }
 
-
-// RIGHT PANE FUNCTIONS //
-function renderSlide(type) {
-    if (!fortniteData) {
-        slideContent.textContent = 'Loading...';
-        return;
-    }
-    if (type === 'drop') {
-        const spot = fortniteData.dropSpots[Math.floor(Math.random() * fortniteData.dropSpots.length)];
-        slideContent.innerHTML = `<h2 class="slide-title">🎯 Drop Spot</h2><p class="slide-body">${spot}</p>`;
-    } 
-    else if (type === 'loadout') {
-        const loadout = fortniteData.loadouts[Math.floor(Math.random() * fortniteData.loadouts.length)];
-        slideContent.innerHTML = `<h2 class="slide-title">🎒 Loadout</h2>
-        <p class="slide-body"><strong>Primary: </strong>${loadout.primary}</p>
-        <p class="slide-body"><strong>Secondary: </strong>${loadout.secondary}</p>
-        <p class="slide-body"><strong>Utility: </strong>${loadout.utility}</p>`;
-    } 
-    else if (type === 'forecast') {
-        slideContent.innerHTML = `<h2 class="slide-title">🌩 Weather Forecast</h2><p class="slide-body">${fortniteData.forecast}</p>`;
-    }
-}
-
-function showSlide(type) {
-    currentSlide = type;
-    renderSlide(type);
-    updateActiveButton(type);
-    resetInterval();
-}
-
-function resetInterval() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(() => {
-        if (currentSlide === 'drop') showSlide('loadout');
-        else if (currentSlide === 'loadout') showSlide('forecast');
-        else showSlide('drop');
-    }, slideDuration);
+async function fetchPOIs() {
+    const res = await fetch(MAP_URL);
+    const data = await res.json();
+    return data.data.pois.filter(poi => !poi.id.includes('UnNamedPOI'));
 }
 
 
@@ -187,6 +155,58 @@ function updateDateTime() {
     document.getElementById('date-display').textContent = dateStr;
     document.getElementById('time-display').textContent = timeStr;
 }
+
+// RIGHT PANE FUNCTIONS //
+function getRandomPOI(POIs) {
+    const index = Math.floor(Math.random() * POIs.length);
+    return POIs[index];
+}
+fetchPOIs().then(POIs => {
+    let POI = getRandomPOI(POIs);
+    const container = document.getElementById('mini-drop-box');
+    container.innerHTML = `
+    <p>Drop Spot</p>
+    <p class="mini-box-p">${POI.name}</p>`;
+});
+
+
+function renderSlide(type) {
+    if (!fortniteData) {
+        slideContent.textContent = 'Loading...';
+        return;
+    }
+    if (type === 'drop') {
+        const spot = fortniteData.dropSpots[Math.floor(Math.random() * fortniteData.dropSpots.length)];
+        slideContent.innerHTML = `<h2 class="slide-title">🎯 Drop Spot</h2><p class="slide-body">${spot}</p>`;
+    } 
+    else if (type === 'loadout') {
+        const loadout = fortniteData.loadouts[Math.floor(Math.random() * fortniteData.loadouts.length)];
+        slideContent.innerHTML = `<h2 class="slide-title">🎒 Loadout</h2>
+        <p class="slide-body"><strong>Primary: </strong>${loadout.primary}</p>
+        <p class="slide-body"><strong>Secondary: </strong>${loadout.secondary}</p>
+        <p class="slide-body"><strong>Utility: </strong>${loadout.utility}</p>`;
+    } 
+    else if (type === 'forecast') {
+        slideContent.innerHTML = `<h2 class="slide-title">🌩 Weather Forecast</h2><p class="slide-body">${fortniteData.forecast}</p>`;
+    }
+}
+
+function showSlide(type) {
+    currentSlide = type;
+    renderSlide(type);
+    updateActiveButton(type);
+    resetInterval();
+}
+
+function resetInterval() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(() => {
+        if (currentSlide === 'drop') showSlide('loadout');
+        else if (currentSlide === 'loadout') showSlide('forecast');
+        else showSlide('drop');
+    }, slideDuration);
+}
+
 
 // RENDER DATA //
 fetchData().then(() => {

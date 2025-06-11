@@ -92,6 +92,13 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     text-align: center;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.mini-box-p {
+    font-family: Karla;
+    font-size: 11pt;
 }
 
 main#slide-content {
@@ -99,13 +106,6 @@ main#slide-content {
     padding: 10px;
     border-radius: 8px;
     text-align: center;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
 }
 
 /* LEFT PANE */
