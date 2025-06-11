@@ -76,6 +76,24 @@ body {
     height: 100%;
 }
 
+.mini-box-row {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    gap: 3%;
+    padding: 10px;
+    align-items: stretch;
+}
+
+.mini-box {
+    width: 31%;
+    height: 100px;
+    background: rgba(145, 70, 255, 0.45);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    text-align: center;
+}
+
 main#slide-content {
     font-size: 16pt;
     padding: 10px;
