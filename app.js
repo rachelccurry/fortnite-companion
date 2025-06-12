@@ -163,10 +163,16 @@ function getRandomPOI(POIs) {
 }
 fetchPOIs().then(POIs => {
     let POI = getRandomPOI(POIs);
-    const container = document.getElementById('mini-drop-box');
+
+    const container = document.getElementById('drop-box-left');
     container.innerHTML = `
-    <p>Drop Spot</p>
-    <p class="mini-box-p">${POI.name}</p>`;
+    <p id="left-drop-box-p" class="mini-box-p">${POI.name}</p>`;
+
+    const container2 = document.getElementById('drop-box-right');
+    container2.innerHTML = `
+    <p class="mini-box-p">test</p>
+    `;
+
 });
 
 

@@ -86,19 +86,63 @@ body {
 }
 
 .mini-box {
-    width: 31%;
+    width: 30%;
     height: 100px;
     background: rgba(145, 70, 255, 0.45);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     text-align: center;
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mini-box-long {
+    width: 65%;
+    height: 100px;
+    background: rgba(145, 70, 255, 0.45);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .mini-box-p {
     font-family: Karla;
-    font-size: 11pt;
+    font-size: 10pt;
+    text-align: left;
+}
+
+.drop-box-row {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    gap: 3%;
+    padding: 5px;
+    align-items: stretch;
+}
+
+.emoji-drop-box {
+    width: 2%;
+    height: 50px;
+}
+
+.drop-box-left {
+    width: 35%;
+    height: 50px;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.drop-box-right {
+    background-color: #000000;
+    width: 46%;
+    height: 50px;
+    text-align: right;
+}
+
+#left-drop-box-p {
+    margin-top: 2px;
 }
 
 main#slide-content {
