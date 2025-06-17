@@ -19,6 +19,7 @@ setInterval(updateDateTime, 20000);
 const DATA_URL = 'https://rachelccurry.github.io/fortnite-companion-data/data.json';
 const SKIN_URL = 'https://fortnite-api.com/v2/cosmetics/br?type=outfit';
 const MAP_URL = 'https://fortnite-api.com/v1/map';
+const mapImageUrl = "https://fortnite-api.com/images/map_en.png";
 
 let fortniteData = null;
 
@@ -44,7 +45,7 @@ async function fetchSkins() {
 async function fetchPOIs() {
     const res = await fetch(MAP_URL);
     const data = await res.json();
-    return data.data.pois.filter(poi => !poi.id.includes('UnNamedPOI'));
+    return data.data.pois;
 }
 
 
@@ -161,8 +162,21 @@ function getRandomPOI(POIs) {
     const index = Math.floor(Math.random() * POIs.length);
     return POIs[index];
 }
+
+function convertToPixelCoords(location, imageWidth, imageHeight) {
+    const gameCoordMin = -51200;
+    const gameCoordMax = 51200;
+
+    const normalizedX = (location.x - gameCoordMin) / (gameCoordMax - gameCoordMin);
+    const normalizedY = 1 - (location.y - gameCoordMin) / (gameCoordMax - gameCoordMin); // invert Y
+
+    const x = normalizedX * imageWidth;
+    const y = normalizedY * imageHeight;
+    return { x, y };
+}
+
 fetchPOIs().then(POIs => {
-    let POI = getRandomPOI(POIs);
+    let POI = getRandomPOI(POIs.filter(poi => !poi.id.includes('UnNamedPOI')));
 
     const container = document.getElementById('drop-box-left');
     container.innerHTML = `
@@ -170,8 +184,11 @@ fetchPOIs().then(POIs => {
 
     const container2 = document.getElementById('drop-box-right');
     container2.innerHTML = `
-    <p class="mini-box-p">test</p>
+    <div id="mini-map-thumb" class="mini-map-thumb"></div>
     `;
+
+    let mapThumb = document.getElementById('mini-map-thumb');
+    mapThumb.style.backgroundPosition = `-${POI.location.x}px -${POI.location.y}px`;
 
 });
 
