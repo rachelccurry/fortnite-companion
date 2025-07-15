@@ -17,7 +17,6 @@ body {
     border-radius: 12px;
     padding: 10px;
     box-shadow: 0 0 15px #000000;
-    overflow: visible;
     background:rgba(24, 26, 31, 0.5);
 }
 
@@ -96,6 +95,11 @@ body {
     padding-right: 10px;
 }
 
+.drop-spot-name {
+    font-family: Karla;
+    font-size: 10pt;
+}
+
 .mini-box-long {
     width: 65%;
     height: 100px;
@@ -107,13 +111,7 @@ body {
     padding-right: 10px;
 }
 
-.mini-box-p {
-    font-family: Karla;
-    font-size: 10pt;
-    text-align: left;
-}
-
-.drop-box-row {
+.stat-box-row {
     height: 50px;
     width: 100%;
     display: flex;
@@ -122,42 +120,17 @@ body {
     align-items: stretch;
 }
 
-.emoji-drop-box {
-    width: 2%;
-    height: 50px;
-    font-size: 13pt;
-}
-
-.drop-box-left {
+.stat-box-left {
     width: 35%;
     height: 50px;
     text-align: left;
     padding-left: 5px;
 }
 
-.drop-box-right {
+.stat-box-right {
     width: 46%;
     height: 50px;
     text-align: right;
-}
-
-#left-drop-box-p {
-    margin-top: 6px;
-}
-
-.mini-map-thumb {
-    width: 130px;
-    height: 50px;
-    background-image: url('https://fortnite-api.com/images/map_en.png');
-    background-size: 2048px 2048px;
-    background-repeat: no-repeat;
-}
-
-main#slide-content {
-    font-size: 16pt;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
 }
 
 .slideshow2-wrapper {
@@ -168,6 +141,40 @@ main#slide-content {
     background: rgba(145, 70, 255, 0.45);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
+    text-align: center;
+    font-size: 16pt;
+}
+
+.scrollable-pane {
+    width: 385px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+.shop-skins-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.shop-skin-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    padding: 6.5px;
+    font-family: 'Karla';
+    font-size: 9pt;
+    color: white;
+    width: 100px;
+    height: 130px;
+    flex-shrink: 0;
+}
+
+.shop-skin-card img {
+    width: 100%;
+    margin-bottom: 0px;
 }
 
 /* LEFT PANE */

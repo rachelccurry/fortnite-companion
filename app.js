@@ -7,7 +7,8 @@ const buttons = document.querySelectorAll('nav button');
 const leftBtn = document.querySelector('.left-arrow');
 const rightBtn = document.querySelector('.right-arrow');
 const slides = document.querySelectorAll('.skin-slide');
-const backupImg = 'https://rachelccurry.github.io/fortnite-companion-data/other/backup.png';
+const statsAPIKey = 'bcd1eab6-652a-4312-9cd8-692769e8e3b8';
+const player = 'noctrnalnavi';
 let currentSkinSlide = 0;
 
 let currentSlide = 'drop';
@@ -20,6 +21,7 @@ const DATA_URL = 'https://rachelccurry.github.io/fortnite-companion-data/data.js
 const SKIN_URL = 'https://fortnite-api.com/v2/cosmetics/br?type=outfit';
 const MAP_URL = 'https://fortnite-api.com/v1/map';
 const mapImageUrl = "https://fortnite-api.com/images/map_en.png";
+const SHOP_URL = 'https://fortnite-api.com/v2/shop';
 
 let fortniteData = null;
 
@@ -47,6 +49,20 @@ async function fetchPOIs() {
     const data = await res.json();
     return data.data.pois;
 }
+
+async function fetchShop() {
+    const res = await fetch(SHOP_URL);
+    const data = await res.json();
+    const entries = data.data.entries || [];
+    const allItems = entries.flatMap(entry => entry.brItems || []);
+    const skinsAndEmotes = allItems.filter(item => {
+    const type = item.type?.displayValue?.toLowerCase();
+    return type === 'outfit' || type === 'emote';
+  });
+
+  return skinsAndEmotes;
+}
+
 
 
 // BUTTON THINGS //
@@ -163,77 +179,74 @@ function getRandomPOI(POIs) {
     return POIs[index];
 }
 
-function convertToPixelCoords(location, imageWidth, imageHeight) {
-    const gameCoordMin = -51200;
-    const gameCoordMax = 51200;
-
-    const normalizedX = (location.x - gameCoordMin) / (gameCoordMax - gameCoordMin);
-    const normalizedY = 1 - (location.y - gameCoordMin) / (gameCoordMax - gameCoordMin); // invert Y
-
-    const x = normalizedX * imageWidth;
-    const y = normalizedY * imageHeight;
-    return { x, y };
-}
-
 fetchPOIs().then(POIs => {
     let POI = getRandomPOI(POIs.filter(poi => !poi.id.includes('UnNamedPOI')));
 
-    const container = document.getElementById('drop-box-left');
+    const container = document.getElementById('drop-spot-name');
     container.innerHTML = `
-    <p id="left-drop-box-p" class="mini-box-p">${POI.name}</p>`;
-
-    const container2 = document.getElementById('drop-box-right');
-    container2.innerHTML = `
-    <div id="mini-map-thumb" class="mini-map-thumb"></div>
-    `;
-
-    let mapThumb = document.getElementById('mini-map-thumb');
-    mapThumb.style.backgroundPosition = `-${POI.location.x}px -${POI.location.y}px`;
+    <p id="drop-spot-p" class="drop-spot-name">${POI.name}</p>`;
 
 });
 
+fetchShop().then(items => {
+  const container = document.getElementById('shop-skins-row');
+  container.innerHTML = '';
 
-function renderSlide(type) {
-    if (!fortniteData) {
-        slideContent.textContent = 'Loading...';
-        return;
+  items.forEach(item => {
+    if (item.images.featured) {
+        const card = document.createElement('div');
+        card.classList.add('shop-skin-card');
+        card.innerHTML = `
+        <img src="${item.images.featured}" alt="${item.name}" />
+        <p style="margin-top: 2px; text-wrap:wrap;">${item.name}</p>
+        `;
+        container.appendChild(card);
     }
-    if (type === 'drop') {
-        const spot = fortniteData.dropSpots[Math.floor(Math.random() * fortniteData.dropSpots.length)];
-        slideContent.innerHTML = `<h2 class="slide-title">🎯 Drop Spot</h2><p class="slide-body">${spot}</p>`;
-    } 
-    else if (type === 'loadout') {
-        const loadout = fortniteData.loadouts[Math.floor(Math.random() * fortniteData.loadouts.length)];
-        slideContent.innerHTML = `<h2 class="slide-title">🎒 Loadout</h2>
-        <p class="slide-body"><strong>Primary: </strong>${loadout.primary}</p>
-        <p class="slide-body"><strong>Secondary: </strong>${loadout.secondary}</p>
-        <p class="slide-body"><strong>Utility: </strong>${loadout.utility}</p>`;
-    } 
-    else if (type === 'forecast') {
-        slideContent.innerHTML = `<h2 class="slide-title">🌩 Weather Forecast</h2><p class="slide-body">${fortniteData.forecast}</p>`;
-    }
-}
+  });
+});
 
-function showSlide(type) {
-    currentSlide = type;
-    renderSlide(type);
-    updateActiveButton(type);
-    resetInterval();
-}
 
-function resetInterval() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(() => {
-        if (currentSlide === 'drop') showSlide('loadout');
-        else if (currentSlide === 'loadout') showSlide('forecast');
-        else showSlide('drop');
-    }, slideDuration);
-}
+// function renderSlide(type) {
+//     if (!fortniteData) {
+//         slideContent.textContent = 'Loading...';
+//         return;
+//     }
+//     if (type === 'drop') {
+//         const spot = fortniteData.dropSpots[Math.floor(Math.random() * fortniteData.dropSpots.length)];
+//         slideContent.innerHTML = `<h2 class="slide-title">🎯 Drop Spot</h2><p class="slide-body">${spot}</p>`;
+//     } 
+//     else if (type === 'loadout') {
+//         const loadout = fortniteData.loadouts[Math.floor(Math.random() * fortniteData.loadouts.length)];
+//         slideContent.innerHTML = `<h2 class="slide-title">🎒 Loadout</h2>
+//         <p class="slide-body"><strong>Primary: </strong>${loadout.primary}</p>
+//         <p class="slide-body"><strong>Secondary: </strong>${loadout.secondary}</p>
+//         <p class="slide-body"><strong>Utility: </strong>${loadout.utility}</p>`;
+//     } 
+//     else if (type === 'forecast') {
+//         slideContent.innerHTML = `<h2 class="slide-title">🌩 Weather Forecast</h2><p class="slide-body">${fortniteData.forecast}</p>`;
+//     }
+// }
+
+// function showSlide(type) {
+//     currentSlide = type;
+//     renderSlide(type);
+//     updateActiveButton(type);
+//     resetInterval();
+// }
+
+// function resetInterval() {
+//     clearInterval(slideInterval);
+//     slideInterval = setInterval(() => {
+//         if (currentSlide === 'drop') showSlide('loadout');
+//         else if (currentSlide === 'loadout') showSlide('forecast');
+//         else showSlide('drop');
+//     }, slideDuration);
+// }
 
 
 // RENDER DATA //
 fetchData().then(() => {
-    showSlide('drop');
+    // showSlide('drop');
     updateDateTime();
     renderBackground();
 });
