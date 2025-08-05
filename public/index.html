@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Fortnite Companion</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Lilita+One&family=Luckiest+Guy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="background" class="bg"></div>
+        <div class="container">
+            <header>
+                <h1 class="main-title">Fortnite Stack</h1>
+            </header>
+            <div class="sub-container">
+                <div class="left-sub-container">
+                    <div class="date-time">
+                        <span id="date-display"></span>
+                        <span>&nbsp;|&nbsp;</span>
+                        <span id="time-display"></span>
+                    </div>
+                    <div class="slideshow-wrapper">
+                        <div class="skin-slideshow">
+                            <div class="skin-slide active" id="slide1">
+                                <div class="skin-display">
+                                    <div id="daily-skin">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skin-slide" id="slide2">
+                                <div class="skin-display">
+                                    <div id="daily-skin-details"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="right-arrow">></button>
+                <div class="right-sub-container">
+                    <div id="right-top-row" class="mini-box-row">
+                        <div id="mini-drop-box" class="mini-box">
+                            <p>Drop Spot</p>
+                            <div id="drop-spot-name" class="drop-spot-name"></div>
+                        </div>
+                        <div id="mini-stat-box" class="mini-box-long">
+                            <p style="margin-bottom: 3px;">Team Stats (BR)</p>
+                            <div id="stat-box-row" class="stat-box-row">
+                                <div id="stat-box-left" class="stat-box-left"></div>
+                                <div id="stat-box-right" class="stat-box-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slideshow2-wrapper">
+                        <p class="slide-title" style="margin-bottom: 5px;">Featured Shop Items</p>
+                        <div class="inner-slideshow-wrapper">
+                            <div class="scrollable-pane">
+                                <div id="shop-skins-row" class="shop-skins-row"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="left-arrow hidden"><</button>
+            </div>
+        </div>
+        <div id="season-label" class="label"></div>
+        <div id="'map-popup" class="map-hidden">
+            <div class="full-map"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+
