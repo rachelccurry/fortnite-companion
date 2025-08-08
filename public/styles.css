@@ -78,6 +78,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    transition: 0.3s ease;
 }
 
 #full-map {
@@ -94,6 +95,7 @@ body {
 
 .map-hidden {
     opacity: 0;
+    transition: 0.3s ease;
     visibility: hidden;
     pointer-events: none;
 }

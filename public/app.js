@@ -2,16 +2,9 @@
 // May 23rd, 2025
 // Fortnite Companion App
 
-const slideContent = document.getElementById('slide-content');
-const buttons = document.querySelectorAll('nav button');
-const leftBtn = document.querySelector('.left-arrow');
-const rightBtn = document.querySelector('.right-arrow');
-const slides = document.querySelectorAll('.skin-slide');
 const username = 'noctrnalnavi';
-let currentSkinSlide = 0;
 
-let currentSlide = 'drop';
-
+// URLS //
 const DATA_URL = 'https://rachelccurry.github.io/fortnite-companion-data/data.json';
 const SKIN_URL = 'https://fortnite-api.com/v2/cosmetics/br?type=outfit';
 const MAP_URL = 'https://fortnite-api.com/v1/map';
@@ -31,19 +24,16 @@ async function fetchData() {
         slideContent.textContent = 'Error loading data :(';
     }
 }
-
 async function fetchSkins() {
     const res = await fetch(SKIN_URL);
     const data = await res.json();
     return data.data.filter(item => item.type.backendValue === 'AthenaCharacter');
 }
-
 async function fetchPOIs() {
     const res = await fetch(MAP_URL);
     const data = await res.json();
     return data.data.pois;
 }
-
 async function fetchShop() {
     const res = await fetch(SHOP_URL);
     const data = await res.json();
@@ -58,7 +48,6 @@ async function fetchShop() {
 //   return skinsAndEmotes;
     return allItems;
 }
-
 async function loadPlayerStats(username) {
   const res = await fetch(`/api/stats/${username}`);
   const data = await res.json();
@@ -70,19 +59,50 @@ function scheduleMapUpdates() {
     const sixHrs = 6*60*60*1000;
     setInterval(renderBackground, sixHrs);
 }
-
-function scheduleDropUpdates() {
-    const thirtyMin = 30*60*1000;
+function schedulePOIUpdates() {
+    const thirtyMin = 20*60*1000;
     setInterval(updatePOI, thirtyMin);
+}
+function scheduleSkinUpdate(){
+    const now = new Date();
+    const midnight = new Date();
+
+    midnight.setHours(24, 0, 0, 0);
+    let timeUntilMidnight = midnight - now;
+
+    setTimeout(() => {
+        updateDailySkin();
+        setInterval(updateDailySkin, 24*60*60*1000);
+    }, timeUntilMidnight);
+}
+function scheduleShopUpdate(){
+    const now = new Date();
+    const shopResetTime = new Date();
+
+    shopResetTime.setUTCHours(0, 0, 0, 0);
+    if (shopResetTime <= now) {
+        shopResetTime.setUTCDate(shopResetTime.getUTCDate + 1);
+    }
+    let timeUntilShop = shopResetTime - now;
+
+    setTimeout(() => {
+        updateShop();
+        setInterval(updateShop, 24*60*60*1000);
+    }, timeUntilShop);
 }
 
 // L & R SLIDE BUTTONS //
+const buttons = document.querySelectorAll('nav button');
+const leftBtn = document.querySelector('.left-arrow');
+const rightBtn = document.querySelector('.right-arrow');
+const slideContent = document.getElementById('slide-content');
+const slides = document.querySelectorAll('.skin-slide');
+let currentSkinSlide = 0;
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         showSlide(btn.getAttribute('data-slide'));
     });
 });
-
 function updateActiveButton(type) {
     buttons.forEach(btn => {
         if (btn.getAttribute('data-slide') === type) {
@@ -93,14 +113,12 @@ function updateActiveButton(type) {
         }
     });
 }
-
 rightBtn.addEventListener('click', () => {
     rightBtn.classList.add('hidden');
     leftBtn.classList.remove('hidden');
     currentSkinSlide = (currentSkinSlide + 1) % slides.length;
     showSkinSlide(currentSkinSlide);
 });
-
 leftBtn.addEventListener('click', () => {
     leftBtn.classList.add('hidden');
     rightBtn.classList.remove('hidden');
@@ -108,13 +126,11 @@ leftBtn.addEventListener('click', () => {
     showSkinSlide(currentSkinSlide);
 });
 
-
-// BACKGROUND FUNCTIONS //
+// BACKGROUND MAP FUNCTIONS //
 function getRandomMap() {
     const maps = fortniteData.maps;
     return maps[Math.floor(Math.random() * maps.length)];
 }
-
 function renderBackground() {
     if (!fortniteData || !fortniteData.maps) {
         console.error('Map data missing.');
@@ -150,7 +166,6 @@ let label = document.getElementById('season-label');
 label.addEventListener('click', () => {
     popup.classList.remove('map-hidden')
 });
-
 closeBtn.addEventListener('click', () => {
     popup.classList.add('map-hidden');
 });
@@ -160,7 +175,8 @@ function getDailySkin(skins) {
     const index = Math.floor(Math.random() * skins.length);
     return skins[index];
 }
-fetchSkins().then(skins => {
+function updateDailySkin() {
+    fetchSkins().then(skins => {
     let dailySkin = getDailySkin(skins);
     while (!dailySkin.images.featured) {
         dailySkin = getDailySkin(skins);
@@ -188,12 +204,12 @@ fetchSkins().then(skins => {
     <p></p>
   `;
 });
+}
 function showSkinSlide(index) {
     slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
     });
 }
-
 function updateDateTime() {
     const now = new Date();
     const options = { weekday: 'short', month: 'short', day: 'numeric' };
@@ -209,7 +225,6 @@ function getRandomPOI(POIs) {
     const index = Math.floor(Math.random() * POIs.length);
     return POIs[index];
 }
-
 function updatePOI() {
     fetchPOIs().then(POIs => {
         let POI = getRandomPOI(POIs.filter(poi => !poi.id.includes('UnNamedPOI')));
@@ -219,13 +234,13 @@ function updatePOI() {
         <p id="drop-spot-p" class="drop-spot-name">${POI.name}</p>`;
 
     });
-};
+}
+function updateShop() {
+    fetchShop().then(items => {
+    const container = document.getElementById('shop-skins-row');
+    container.innerHTML = '';
 
-fetchShop().then(items => {
-  const container = document.getElementById('shop-skins-row');
-  container.innerHTML = '';
-
-  items.forEach(item => {
+    items.forEach(item => {
     if (item.images.featured) {
         const card = document.createElement('div');
         card.classList.add('shop-skin-card');
@@ -235,8 +250,9 @@ fetchShop().then(items => {
         `;
         container.appendChild(card);
     }
-  });
+    });
 });
+}
 
 // stats here
 
@@ -244,7 +260,11 @@ fetchShop().then(items => {
 fetchData().then(() => {
     updateDateTime();
     renderBackground();
+    updateDailySkin();
     updatePOI();
+    updateShop();
     scheduleMapUpdates();
-    scheduleDropUpdates();
+    schedulePOIUpdates();
+    scheduleSkinUpdate();
+    scheduleShopUpdate();
 });
