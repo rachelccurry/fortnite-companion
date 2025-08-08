@@ -54,13 +54,14 @@ async function fetchShop() {
     const data = await res.json();
     const entries = data.data.entries || [];
     const allItems = entries.flatMap(entry => entry.brItems || []);
-    const skinsAndEmotes = allItems.filter(item => {
-    const type = item.type?.displayValue?.toLowerCase();
-        return type === 'outfit';
-    // return type === 'outfit' || type === 'emote';
-  });
+//     const skinsAndEmotes = allItems.filter(item => {
+//     const type = item.type?.displayValue?.toLowerCase();
+//         return type === 'outfit';
+//     // return type === 'outfit' || type === 'emote';
+//   });
 
-  return skinsAndEmotes;
+//   return skinsAndEmotes;
+    return allItems;
 }
 
 async function loadPlayerStats(username) {
@@ -118,6 +119,9 @@ function renderBackground() {
     
     let bg = document.getElementById('background');
     let label = document.getElementById('season-label');
+    let fullMap = document.getElementById('full-map');
+
+    fullMap.style.backgroundImage = `url(${map.image})`;
 
     if (bg && map.image) {
         bg.style.backgroundImage = `url(${map.image})`;
@@ -131,12 +135,27 @@ function renderBackground() {
         label.textContent = map.label + ' Map';
     }
 }
+
 if (fortniteData && fortniteData.maps) {
     renderBackground();
     setInterval(renderBackground, mapDuration);
 } else {
     console.error('fortniteData not loaded when script ran.');
 }
+
+// MAP POPUP
+let popup = document.getElementById('map-popup');
+let closeBtn = document.getElementById('close-map');
+let label = document.getElementById('season-label');
+
+label.addEventListener('click', () => {
+    popup.classList.remove('map-hidden')
+});
+
+closeBtn.addEventListener('click', () => {
+    popup.classList.add('map-hidden');
+});
+
 
 
 // LEFT PANE FUNCTIONS //
