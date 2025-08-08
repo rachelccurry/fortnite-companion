@@ -11,10 +11,6 @@ const username = 'noctrnalnavi';
 let currentSkinSlide = 0;
 
 let currentSlide = 'drop';
-let slideInterval;
-const slideDuration = 13000;
-const mapDuration = 100;
-setInterval(updateDateTime, 20000);
 
 const DATA_URL = 'https://rachelccurry.github.io/fortnite-companion-data/data.json';
 const SKIN_URL = 'https://fortnite-api.com/v2/cosmetics/br?type=outfit';
@@ -23,7 +19,6 @@ const mapImageUrl = "https://fortnite-api.com/images/map_en.png";
 const SHOP_URL = 'https://fortnite-api.com/v2/shop';
 
 let fortniteData = null;
-
 
 // GET DATA FUNCTIONS //
 async function fetchData() {
@@ -70,7 +65,18 @@ async function loadPlayerStats(username) {
   return(data);
 }
 
-// BUTTON THINGS //
+// SCHEDULER FUNCTIONS //
+function scheduleMapUpdates() {
+    const sixHrs = 6*60*60*1000;
+    setInterval(renderBackground, sixHrs);
+}
+
+function scheduleDropUpdates() {
+    const thirtyMin = 30*60*1000;
+    setInterval(updatePOI, thirtyMin);
+}
+
+// L & R SLIDE BUTTONS //
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
         showSlide(btn.getAttribute('data-slide'));
@@ -136,13 +142,6 @@ function renderBackground() {
     }
 }
 
-if (fortniteData && fortniteData.maps) {
-    renderBackground();
-    setInterval(renderBackground, mapDuration);
-} else {
-    console.error('fortniteData not loaded when script ran.');
-}
-
 // MAP POPUP
 let popup = document.getElementById('map-popup');
 let closeBtn = document.getElementById('close-map');
@@ -155,8 +154,6 @@ label.addEventListener('click', () => {
 closeBtn.addEventListener('click', () => {
     popup.classList.add('map-hidden');
 });
-
-
 
 // LEFT PANE FUNCTIONS //
 function getDailySkin(skins) {
@@ -213,14 +210,16 @@ function getRandomPOI(POIs) {
     return POIs[index];
 }
 
-fetchPOIs().then(POIs => {
-    let POI = getRandomPOI(POIs.filter(poi => !poi.id.includes('UnNamedPOI')));
+function updatePOI() {
+    fetchPOIs().then(POIs => {
+        let POI = getRandomPOI(POIs.filter(poi => !poi.id.includes('UnNamedPOI')));
 
-    const container = document.getElementById('drop-spot-name');
-    container.innerHTML = `
-    <p id="drop-spot-p" class="drop-spot-name">${POI.name}</p>`;
+        const container = document.getElementById('drop-spot-name');
+        container.innerHTML = `
+        <p id="drop-spot-p" class="drop-spot-name">${POI.name}</p>`;
 
-});
+    });
+};
 
 fetchShop().then(items => {
   const container = document.getElementById('shop-skins-row');
@@ -245,4 +244,7 @@ fetchShop().then(items => {
 fetchData().then(() => {
     updateDateTime();
     renderBackground();
+    updatePOI();
+    scheduleMapUpdates();
+    scheduleDropUpdates();
 });
