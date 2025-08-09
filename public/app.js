@@ -81,7 +81,7 @@ function scheduleShopUpdate(){
 
     shopResetTime.setUTCHours(0, 0, 0, 0);
     if (shopResetTime <= now) {
-        shopResetTime.setUTCDate(shopResetTime.getUTCDate + 1);
+        shopResetTime.setUTCDate(shopResetTime.getUTCDate() + 1);
     }
     let timeUntilShop = shopResetTime - now;
 
@@ -259,6 +259,7 @@ function updateShop() {
 // RENDER DATA //
 fetchData().then(() => {
     updateDateTime();
+    setInterval(updateDateTime, 1000);
     renderBackground();
     updateDailySkin();
     updatePOI();
