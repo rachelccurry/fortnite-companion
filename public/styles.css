@@ -2,12 +2,12 @@
 body {
     font-family: 'Luckiest Guy';
     color: #eee;
-    margin: 0; padding: 0;
+    margin: 0; 
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
-
 .container {
     position: relative;
     width: 90%;
@@ -19,7 +19,6 @@ body {
     box-shadow: 0 0 15px #000000;
     background:rgba(24, 26, 31, 0.5);
 }
-
 .sub-container {
     height: 330px;
     display: flex;
@@ -27,12 +26,10 @@ body {
     padding: 10px;
     align-items: stretch;
 }
-
 .main-title {
     font-size: 16pt;
     margin-bottom: 5px;
 }
-
 .bg {
     position: fixed;
     top: 0; left: 0;
@@ -43,7 +40,6 @@ body {
     z-index: -1;
     opacity: 0.5;
 }
-
 .label {
     position: absolute;
     bottom: 10px;
@@ -54,8 +50,8 @@ body {
     background: rgba(0, 0, 0, 0.5);
     padding: 4px 8px;
     border-radius: 4px;
+    cursor: pointer;
 }
-
 .slideshow-wrapper {
     position: relative;
     width: 100%;
@@ -80,7 +76,6 @@ body {
     z-index: 1000;
     transition: 0.3s ease;
 }
-
 #full-map {
     max-width: 90%;
     max-height: 90%;
@@ -92,14 +87,12 @@ body {
     background-position: center;
     border-radius: 10px;
 }
-
 .map-hidden {
     opacity: 0;
     transition: 0.3s ease;
     visibility: hidden;
     pointer-events: none;
 }
-
 .close-button {
     position: absolute;
     top: 20px;
@@ -113,7 +106,6 @@ body {
     cursor: pointer;
     z-index: 1001;
 }
-
 .close-button:hover {
     color: #ccc;
 }
@@ -127,7 +119,6 @@ body {
     align-items: center;
     height: 100%;
 }
-
 .mini-box-row {
     height: 100px;
     width: 100%;
@@ -136,7 +127,6 @@ body {
     padding: 10px;
     align-items: stretch;
 }
-
 .mini-box {
     width: 30%;
     height: 100px;
@@ -147,12 +137,10 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 }
-
 .drop-spot-name {
     font-family: Karla;
     font-size: 10pt;
 }
-
 .mini-box-long {
     width: 65%;
     height: 100px;
@@ -163,29 +151,49 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 }
-
 .stat-box-row {
     height: 50px;
     width: 100%;
     display: flex;
     gap: 3%;
-    padding: 5px;
+    padding: 0;
+    margin: 0;
     align-items: stretch;
 }
-
 .stat-box-left {
-    width: 35%;
+    width: 65%;
     height: 50px;
     text-align: left;
     padding-left: 5px;
 }
-
 .stat-box-right {
-    width: 46%;
+    width: 16%;
     height: 50px;
-    text-align: right;
+    text-align: center;
 }
-
+#stats-title {
+    margin-bottom: 0;
+    height: 5px;
+}
+.username {
+    font-family: 'Karla';
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    height: 23px;
+}
+.stat-label {
+    font-family: 'Karla';
+    font-size: 9pt;
+    margin: 0 0 2px 0;
+}
+.stat {
+    font-family: 'Karla';
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 0 0 2px 0;
+}
 .slideshow2-wrapper {
     position: relative;
     width: 100%;
@@ -197,7 +205,6 @@ body {
     text-align: center;
     font-size: 16pt;
 }
-
 .scrollable-pane {
     width: 385px;
     overflow-x: auto;
@@ -205,13 +212,11 @@ body {
     white-space: nowrap;
     padding: 10px;
 }
-
 .shop-skins-row {
     display: flex;
     flex-wrap: nowrap;
     gap: 10px;
 }
-
 .shop-skin-card {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
@@ -224,12 +229,10 @@ body {
     height: 130px;
     flex-shrink: 0;
 }
-
 .shop-skin-card img {
     width: 100%;
     margin-bottom: 0px;
 }
-
 /* LEFT PANE */
 .left-sub-container {
     position: relative;
@@ -239,7 +242,6 @@ body {
     align-items: center;
     height: 100%;
 }
-
 .date-time {
     display: flex;
     gap: 7px;
@@ -249,7 +251,6 @@ body {
     color: #fff;
     font-weight: 600;
 }
-
 .left-arrow, .right-arrow  {
     transition: opacity 0.3s ease;
     position: absolute;
@@ -267,30 +268,24 @@ body {
     pointer-events: auto;
     opacity: 1;
 }
-
 .right-arrow { 
     left: 35.5%;
 }
-
 .left-arrow {
     left: 3%;
 }
-
 .right-arrow:hover, .left-arrow:hover {
     background-color: rgba(57, 57, 57, 0.5);
 }
-
 .hidden {
     opacity: 0;
     pointer-events: none;
 }
-
 .skin-slideshow {
     width: 100%;
     height: 100%;
     position: relative;
 }
-
 .skin-slide {
     position: absolute;
     top: 0;
@@ -302,14 +297,12 @@ body {
     transition: opacity 0.5s ease-in-out;
     pointer-events: none;
 }
-
 .skin-slide.active {
     display: block;
     opacity: 1;
     pointer-events: auto;
     z-index: 1;
 }
-
 .skin-display {
     position: relative;
     overflow: hidden;
@@ -318,7 +311,6 @@ body {
     padding: 10px;
     gap: 3px;
 }
-
 .daily-skin {
     max-height: 85%;
     object-fit: contain;
@@ -326,17 +318,14 @@ body {
     display: block;
     margin: 0;
 }
-
 .slide-title {
     font-family: 'Luckiest Guy';
     font-size: 16pt;
 }
-
 .slide-body {
     font-family: 'Karla';
     font-size: 11pt;
 }
-
 .skin-title {
     padding-top: 10px;
     font-family: 'Luckiest Guy';
@@ -344,14 +333,12 @@ body {
     margin: 0 0 4px 0;
     text-align: center;
 }
-
 .skin-name {
     font-family: 'Karla';
     font-size: 11pt;
     margin: 5px;
     text-align: center;
 }
-
 .skin-description {
     font-family: 'Karla';
     font-size: 11pt;

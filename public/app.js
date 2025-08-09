@@ -162,7 +162,6 @@ function renderBackground() {
 let popup = document.getElementById('map-popup');
 let closeBtn = document.getElementById('close-map');
 let label = document.getElementById('season-label');
-
 label.addEventListener('click', () => {
     popup.classList.remove('map-hidden')
 });
