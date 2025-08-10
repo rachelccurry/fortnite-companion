@@ -46,16 +46,26 @@
                         </div>
                         <div id="mini-stat-box" class="mini-box-long">
                             <p id="stats-title">Stats (Battle Royale)</p>
-                            <div id="username" class="username"><p>Username</p></div>
-                            <div id="stat-box-row" class="stat-box-row">
-                                <div id="stat-box-left" class="stat-box-left">
-                                    <p class="stat-label">Overall kills per match: </p>
-                                    <p class="stat-label">Overall Win Rate: </p>
+                            <div id="player-stats-container" class="player-stats-container">
+                                <div id="username">
+                                    <button id="username-button" class="username-button"></button>
                                 </div>
-                                <div id="stat-box-right" class="stat-box-right">
-                                    <p class="stat">25</p>
-                                    <p class="stat">25%</p>
+                                <div id="username-enter-box">
+                                    <input type="text" id="new-username" class="username-entry username-entry-hidden" placeholder="Enter username...">
                                 </div>
+                                <div id="stat-box-row" class="stat-box-row">
+                                    <div id="stat-box-left" class="stat-box-left">
+                                        <p class="stat-label">Overall kills per match: </p>
+                                        <p class="stat-label">Overall Win Rate: </p>
+                                    </div>
+                                    <div id="stat-box-right" class="stat-box-right">
+                                        <!-- <p class="stat">25</p>
+                                        <p class="stat">25%</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="stats-placeholder" class="stats-placeholder">
+                                <!-- <button id="stat-placeholder-button">Enter a username</button> -->
                             </div>
                         </div>
                     </div>

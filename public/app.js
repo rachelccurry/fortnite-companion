@@ -2,8 +2,6 @@
 // May 23rd, 2025
 // Fortnite Companion App
 
-const username = 'noctrnalnavi';
-
 // URLS //
 const DATA_URL = 'https://rachelccurry.github.io/fortnite-companion-data/data.json';
 const SKIN_URL = 'https://fortnite-api.com/v2/cosmetics/br?type=outfit';
@@ -252,11 +250,62 @@ function updateShop() {
     });
 });
 }
+let username = 'Absolute784';
+let changeUserBtn = document.getElementById('username-button');
+let userEntry = document.getElementById('new-username');
+const statContainer = document.getElementById('stat-box-right');
+async function showStats(name) {
+    try {
+        let stats = await loadPlayerStats(name);
+        changeUserBtn.textContent = name;
+        changeUserBtn.innerHTML = `
+            ${name}
+        `;
+        if (stats?.data?.stats?.all?.overall) {
+            statContainer.innerHTML = `
+            <p class="stat">${stats.data.stats.all.overall.killsPerMatch}</p>
+            <p class="stat">${stats.data.stats.all.overall.winRate}%</p>
+            `;
+        }
+        else {
+            statContainer.innerHTML = `
+            <p class="stat">N/A</p>
+            <p class="stat">N/A</p>
+            `;
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+changeUserBtn.addEventListener('click', () => {
+    changeUserBtn.classList.add('username-button-hidden');
+    userEntry.classList.remove('username-entry-hidden');
+    userEntry.value = "";
+    userEntry.focus();
+});
+document.addEventListener('click', (e) => {
+    if (!userEntry.classList.contains("username-entry-hidden") &&
+        e.target !== userEntry &&
+        e.target !== changeUserBtn) {
+        changeUserBtn.classList.remove('username-button-hidden');
+        userEntry.classList.add('username-entry-hidden');
+    }
+});
+userEntry.addEventListener('keydown', async (e) => {
+    if (e.key === "Enter") {
+        username = userEntry.value.trim() || username;
+        changeUserBtn.textContent = username;
 
-// stats here
+        changeUserBtn.classList.remove('username-button-hidden');
+        userEntry.classList.add('username-entry-hidden');
+
+        await showStats(username);
+    }
+});
 
 // RENDER DATA //
 fetchData().then(() => {
+    showStats(username);
     updateDateTime();
     setInterval(updateDateTime, 1000);
     renderBackground();
