@@ -27,6 +27,18 @@ app.get('/api/stats/:username', async (req, res) => {
 const { exec } = require('child_process');
 let keyboardProcess = null;
 
+app.post('/keyboard/open', (req, res) => {
+    if (!keyboardProcess) {
+        keyboardProcess = exec('matchbox-keyboard', (error) => {
+        if (error) {
+            console.error('Keyboard process error:', error);
+        }
+        keyboardProcess = null; // reset on exit
+        });
+    }
+    res.sendStatus(200);
+});
+
 app.post('/keyboard/close', (req, res) => {
     if (keyboardProcess) {
         exec('pkill matchbox-keyboard');
