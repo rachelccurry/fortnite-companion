@@ -157,9 +157,6 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 }
-/* .player-stats-container {
-    display: none;
-} */
 .stat-box-row {
     height: 50px;
     width: 100%;
@@ -232,20 +229,6 @@ body {
     font-weight: bold;
     margin: 0 0 2px 0;
 }
-/* .stats-placeholder {
-    margin-top: 30px;
-}
-#stat-placeholder-button {
-    font-family: 'Karla';
-    font-size: 11pt;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid;
-    background: rgba(255, 255, 255, 0.6);
-}
-#stat-placeholder-button:hover {
-    background: rgba(255, 255, 255, 0.75);
-} */
 .slideshow2-wrapper {
     position: relative;
     width: 100%;
@@ -329,6 +312,7 @@ body {
 }
 .right-arrow:hover, .left-arrow:hover {
     background-color: rgba(57, 57, 57, 0.5);
+    border-radius: 8px;
 }
 .hidden {
     opacity: 0;

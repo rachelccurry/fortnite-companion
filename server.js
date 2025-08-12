@@ -24,7 +24,17 @@ app.get('/api/stats/:username', async (req, res) => {
     }
 });
 
+const { exec } = require('child_process');
+let keyboardProcess = null;
+
+app.post('/keyboard/close', (req, res) => {
+    if (keyboardProcess) {
+        exec('pkill matchbox-keyboard');
+        keyboardProcess = null;
+    }
+    res.sendStatus(200);
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-
