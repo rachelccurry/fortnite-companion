@@ -1,4 +1,7 @@
 /* GLOBAL */
+html, body {
+    cursor:none !important;
+}
 body {
     font-family: 'Luckiest Guy';
     color: #eee;
