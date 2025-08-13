@@ -33,7 +33,7 @@ app.post('/keyboard/open', (req, res) => {
         if (error) {
             console.error('Keyboard process error:', error);
         }
-        keyboardProcess = null; // reset on exit
+        keyboardProcess = null;
         });
     }
     res.sendStatus(200);
