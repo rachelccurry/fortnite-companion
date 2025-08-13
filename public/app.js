@@ -254,6 +254,29 @@ let username = 'Absolute784';
 let changeUserBtn = document.getElementById('username-button');
 let userEntry = document.getElementById('new-username');
 const statContainer = document.getElementById('stat-box-right');
+const keyboardContainer = document.getElementById(keyboard-container);
+const keyboard = new SimpleKeyboard.default({
+    onChange: input => userEntry.value = input,
+    onKeyPress: button => {
+        if (button === "{enter}") submitUsername();
+    },
+    theme: "hg-theme-default hg-layout-default",
+    layout: {
+        default: [
+            "q w e r t y u i o p",
+            "a s d f g h j k l",
+            "z x c v b n m",
+            "{space} {backspace} {enter}"
+        ]
+    }
+});
+function showKeyboard() {
+    keyboardContainer.style.display = "block";
+    keyboard.setInput(userEntry.value);
+}
+function hideKeyboard() {
+    keyboardContainer.style.display = "none";
+}
 async function showStats(name) {
     try {
         let stats = await loadPlayerStats(name);
@@ -281,30 +304,52 @@ changeUserBtn.addEventListener('click', () => {
     changeUserBtn.classList.add('username-button-hidden');
     userEntry.classList.remove('username-entry-hidden');
     userEntry.value = "";
-    setTimeout(() => userEntry.focus(), 100);
-    // openKeyboard();
-    // fetch('/open-keyboard');
+    setTimeout(() => {
+        userEntry.focus();
+        showKeyboard();
+    }, 100);
 });
 document.addEventListener('click', (e) => {
     const inputVisible = !userEntry.classList.contains("username-entry-hidden");
-    const clickedOutside = e.target !== userEntry && e.target !== changeUserBtn;
+    const clickedOutside = e.target !== userEntry &&
+                           e.target !== changeUserBtn &&
+                           !keyboardContainer.contains(e.target);
+
     if (inputVisible && clickedOutside) {
         changeUserBtn.classList.remove('username-button-hidden');
         userEntry.classList.add('username-entry-hidden');
+        hideKeyboard();
     }
 });
-userEntry.addEventListener('keydown', async (e) => {
-    if (e.key === "Enter") {
-        username = userEntry.value.trim() || username;
-        changeUserBtn.textContent = username;
-
-        changeUserBtn.classList.remove('username-button-hidden');
-        userEntry.classList.add('username-entry-hidden');
-
-        await showStats(username);
-        userEntry.blur();
-    }
+userEntry.addEventListener('keydown', (e) => {
+    if (e.key === "Enter") submitUsername();
 });
+// changeUserBtn.addEventListener('click', () => {
+//     changeUserBtn.classList.add('username-button-hidden');
+//     userEntry.classList.remove('username-entry-hidden');
+//     userEntry.value = "";
+//     setTimeout(() => userEntry.focus(), 100);
+// });
+// document.addEventListener('click', (e) => {
+//     const inputVisible = !userEntry.classList.contains("username-entry-hidden");
+//     const clickedOutside = e.target !== userEntry && e.target !== changeUserBtn;
+//     if (inputVisible && clickedOutside) {
+//         changeUserBtn.classList.remove('username-button-hidden');
+//         userEntry.classList.add('username-entry-hidden');
+//     }
+// });
+// userEntry.addEventListener('keydown', async (e) => {
+//     if (e.key === "Enter") {
+//         username = userEntry.value.trim() || username;
+//         changeUserBtn.textContent = username;
+
+//         changeUserBtn.classList.remove('username-button-hidden');
+//         userEntry.classList.add('username-entry-hidden');
+
+//         await showStats(username);
+//         userEntry.blur();
+//     }
+// });
 
 // RENDER DATA //
 fetchData().then(() => {
