@@ -4,6 +4,7 @@
 
 const express = require('express');
 const axios = require('axios');
+const { exec } = require('child_process');
 require('dotenv').config();
 
 const app = express();
@@ -24,26 +25,17 @@ app.get('/api/stats/:username', async (req, res) => {
     }
 });
 
-const { exec } = require('child_process');
-let keyboardProcess = null;
-
-app.post('/keyboard/open', (req, res) => {
-    if (!keyboardProcess) {
-        keyboardProcess = exec('matchbox-keyboard', (error) => {
-        if (error) {
-            console.error('Keyboard process error:', error);
-        }
-        keyboardProcess = null;
-        });
-    }
+app.get('/open-keyboard', (req, res) => {
+    exec('matchbox-keyboard --ontop', (err) => {
+        if (err) console.error(err);
+    });
     res.sendStatus(200);
 });
 
-app.post('/keyboard/close', (req, res) => {
-    if (keyboardProcess) {
-        exec('pkill matchbox-keyboard');
-        keyboardProcess = null;
-    }
+app.get('/close-keyboard', (req, res) => {
+    exec('pkill matchbox-keyboard', (err) => {
+        if (err) console.error(err);
+    });
     res.sendStatus(200);
 });
 
