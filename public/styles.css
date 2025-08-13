@@ -67,7 +67,9 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
 }
-#keyboard-container {
+.simple-keyboard {
+    color: black;
+    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
