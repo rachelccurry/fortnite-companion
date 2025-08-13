@@ -25,19 +25,19 @@ app.get('/api/stats/:username', async (req, res) => {
     }
 });
 
-app.get('/open-keyboard', (req, res) => {
-    exec('DISPLAY=:0 matchbox-keyboard --ontop', (err) => {
-        if (err) console.error(err);
-    });
-    res.sendStatus(200);
-});
+// app.get('/open-keyboard', (req, res) => {
+//     exec('DISPLAY=:0 matchbox-keyboard --ontop', (err) => {
+//         if (err) console.error(err);
+//     });
+//     res.sendStatus(200);
+// });
 
-app.get('/close-keyboard', (req, res) => {
-    exec('pkill matchbox-keyboard', (err) => {
-        if (err) console.error(err);
-    });
-    res.sendStatus(200);
-});
+// app.get('/close-keyboard', (req, res) => {
+//     exec('pkill matchbox-keyboard', (err) => {
+//         if (err) console.error(err);
+//     });
+//     res.sendStatus(200);
+// });
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

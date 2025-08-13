@@ -289,7 +289,7 @@ changeUserBtn.addEventListener('click', () => {
     userEntry.value = "";
     userEntry.focus();
     // openKeyboard();
-    fetch('/open-keyboard');
+    // fetch('/open-keyboard');
 });
 document.addEventListener('click', (e) => {
     const inputVisible = !userEntry.classList.contains("username-entry-hidden");
@@ -298,7 +298,7 @@ document.addEventListener('click', (e) => {
         changeUserBtn.classList.remove('username-button-hidden');
         userEntry.classList.add('username-entry-hidden');
         // closeKeyboard();
-        setTimeout(() => fetch('/close-keyboard'), 200);
+        // setTimeout(() => fetch('/close-keyboard'), 200);
     }
 });
 userEntry.addEventListener('keydown', async (e) => {
@@ -310,7 +310,7 @@ userEntry.addEventListener('keydown', async (e) => {
         userEntry.classList.add('username-entry-hidden');
 
         await showStats(username);
-        setTimeout(() => fetch('/close-keyboard'), 200);
+        // setTimeout(() => fetch('/close-keyboard'), 200);
         // closeKeyboard();
         userEntry.blur();
     }
