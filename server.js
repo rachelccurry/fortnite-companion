@@ -26,7 +26,7 @@ app.get('/api/stats/:username', async (req, res) => {
 });
 
 app.get('/open-keyboard', (req, res) => {
-    exec('matchbox-keyboard --ontop', (err) => {
+    exec('DISPLAY=:0 matchbox-keyboard --ontop', (err) => {
         if (err) console.error(err);
     });
     res.sendStatus(200);
