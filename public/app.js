@@ -277,17 +277,11 @@ async function showStats(name) {
         console.error(err);
     }
 }
-// async function openKeyboard() {
-//     await fetch('/keyboard/open', { method: 'POST' });
-// }
-// async function closeKeyboard() {
-//     await fetch('/keyboard/close', { method: 'POST' });
-// }
 changeUserBtn.addEventListener('click', () => {
     changeUserBtn.classList.add('username-button-hidden');
     userEntry.classList.remove('username-entry-hidden');
     userEntry.value = "";
-    userEntry.focus();
+    setTimeout(() => userEntry.focus(), 100);
     // openKeyboard();
     // fetch('/open-keyboard');
 });
@@ -297,8 +291,6 @@ document.addEventListener('click', (e) => {
     if (inputVisible && clickedOutside) {
         changeUserBtn.classList.remove('username-button-hidden');
         userEntry.classList.add('username-entry-hidden');
-        // closeKeyboard();
-        // setTimeout(() => fetch('/close-keyboard'), 200);
     }
 });
 userEntry.addEventListener('keydown', async (e) => {
@@ -310,8 +302,6 @@ userEntry.addEventListener('keydown', async (e) => {
         userEntry.classList.add('username-entry-hidden');
 
         await showStats(username);
-        // setTimeout(() => fetch('/close-keyboard'), 200);
-        // closeKeyboard();
         userEntry.blur();
     }
 });
